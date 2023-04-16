@@ -1,5 +1,7 @@
 # Connect SDK Flutter
 
+![GitHub issues](https://img.shields.io/github/issues/JacoFaberSA/connectsdk-flutter?style=for-the-badge)
+
 Connect SDK is an open source framework that connects your mobile apps with multiple TV platforms. Because most TV platforms support a variety of protocols, Connect SDK integrates and abstracts the discovery and connectivity between all supported protocols.
 
 To discover supported platforms and protocols, Connect SDK uses SSDP to discover services such as DIAL, DLNA, UDAP, and Roku’s External Control Guide (ECG). Connect SDK also supports ZeroConf to discover devices such as Chromecast and Apple TV. Even while supporting multiple discovery protocols, Connect SDK is able to generate one unified list of discovered devices from the same network.

@@ -10,25 +10,16 @@ import io.flutter.plugin.common.MethodChannel.Result;
 
 /** ConnectsdkPlugin */
 public class ConnectsdkPlugin implements FlutterPlugin, MethodCallHandler, ConnectableDeviceListener {
-  /// The MethodChannel that will the communication between Flutter and native Android
+  /// The MethodChannel that will the communication between Flutter and native
+  /// Android
   ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
+  /// This local reference serves to register the plugin with the Flutter Engine
+  /// and unregister it
   /// when the Flutter Engine is detached from the Activity
   private MethodChannel channel;
 
-  private DiscoveryManager mDiscoveryManager;
+  private DevicePicker mDevicePicker;
   private ConnectableDevice mDevice;
-
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-    DiscoveryManager.init(getApplicationContext());
-
-    // This step could even happen in your app's delegate
-    mDiscoveryManager = DiscoveryManager.getInstance();
-    mDiscoveryManager.start();
-  }
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -40,6 +31,16 @@ public class ConnectsdkPlugin implements FlutterPlugin, MethodCallHandler, Conne
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
+    } else if (call.method.equals("init")) {
+      DiscoveryManager.init(getApplicationContext());
+      CapabilityFilter imageFilter = new CapabilityFilter(MediaPlayer.Display_Image);
+
+      DiscoveryManager.getInstance().setCapabilityFilters(imageFilter);
+      DiscoveryManager.getInstance().start();
+      
+      mDevicePicker = new DevicePicker(this);
+    } else if(all.method.equals("showPicker")) {
+      result.notImplemented();
     } else {
       result.notImplemented();
     }
