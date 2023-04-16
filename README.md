@@ -40,8 +40,15 @@ To support the aforementioned use case without Connect SDK, a developer would ne
 
 ### Metadata for application tag
 
-Add the following line to your proguard configuration file (otherwise `DiscoveryManager` won't be able to set any `DiscoveryProvider`).
+This metadata tag is necessary to enable Chromecast support.
 
 ```
--keep class com.connectsdk.**       { * ; }
+<application ... >
+    ...
+
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+
+</application>
 ```
